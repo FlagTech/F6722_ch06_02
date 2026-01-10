@@ -114,7 +114,9 @@ def main():
                 "continue": True,
                 "user_message": f"JSON 解析錯誤: {str(e)}"
             }
-            print(json.dumps(result, ensure_ascii=False))
+            output = json.dumps(result, ensure_ascii=False)
+            sys.stdout.buffer.write(output.encode('utf-8'))
+            sys.stdout.buffer.flush()
             return
         
         # 取得 prompt 內容
@@ -123,7 +125,9 @@ def main():
         if not prompt:
             # 沒有 prompt，允許繼續
             result = {"continue": True}
-            print(json.dumps(result, ensure_ascii=False))
+            output = json.dumps(result, ensure_ascii=False)
+            sys.stdout.buffer.write(output.encode('utf-8'))
+            sys.stdout.buffer.flush()
             return
         
         # 檢查敏感資訊
@@ -150,7 +154,9 @@ def main():
             "continue": True,
             "user_message": f"檢查過程中發生錯誤: {str(e)}"
         }
-        print(json.dumps(result, ensure_ascii=False))
+        output = json.dumps(result, ensure_ascii=False)
+        sys.stdout.buffer.write(output.encode('utf-8'))
+        sys.stdout.buffer.flush()
 
 
 if __name__ == "__main__":
